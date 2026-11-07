@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Margin homepage offers",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "enabled",
+    "position",
+    "layout",
+    "columns",
+    "maxVisible",
+    "eyebrow",
+    "title",
+    "description",
+    "labels",
+    "items",
+    "emphasizeFirst"
+  ],
+  "properties": {
+    "enabled": {
+      "type": "boolean"
+    },
+    "position": {
+      "enum": [
+        "before-hero",
+        "after-hero",
+        "after-collection",
+        "after-reading-lists",
+        "after-journal"
+      ]
+    },
+    "layout": {
+      "enum": [
+        "grid",
+        "stack"
+      ]
+    },
+    "columns": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "maxVisible": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "eyebrow": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string"
+    },
+    "labels": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "copyCode",
+        "copied",
+        "copyFailed",
+        "codeLabel",
+        "terms"
+      ],
+      "properties": {
+        "copyCode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "copied": {
+          "type": "string",
+          "minLength": 1
+        },
+        "copyFailed": {
+          "type": "string",
+          "minLength": 1
+        },
+        "codeLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "terms": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "enabled",
+          "badge",
+          "title",
+          "highlight",
+          "description",
+          "theme",
+          "code",
+          "terms",
+          "cta",
+          "bookIds",
+          "startsAt",
+          "endsAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "badge": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "highlight": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "theme": {
+            "enum": [
+              "sage",
+              "butter",
+              "clay"
+            ]
+          },
+          "code": {
+            "type": "string"
+          },
+          "terms": {
+            "type": "string"
+          },
+          "cta": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "href",
+              "newTab"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "href": {
+                "type": "string",
+                "pattern": "^(?:#?/|https://)"
+              },
+              "newTab": {
+                "type": "boolean"
+              }
+            }
+          },
+          "bookIds": {
+            "type": "array",
+            "maxItems": 3,
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "startsAt": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+              }
+            ]
+          },
+          "endsAt": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?(?:Z|[+-]\\d{2}:\\d{2})$"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "$schema": {
+      "type": "string"
+    },
+    "emphasizeFirst": {
+      "type": "boolean"
+    }
+  }
+}

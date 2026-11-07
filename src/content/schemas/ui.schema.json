@@ -1,0 +1,518 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Margin ui content",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "common",
+    "accessibility",
+    "book",
+    "collection",
+    "shelf",
+    "readingLists",
+    "journal",
+    "search",
+    "menu",
+    "feedback"
+  ],
+  "properties": {
+    "common": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allBooks",
+        "home",
+        "bookshelf",
+        "collection",
+        "byAuthor"
+      ],
+      "properties": {
+        "allBooks": {
+          "type": "string",
+          "minLength": 1
+        },
+        "home": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bookshelf": {
+          "type": "string",
+          "minLength": 1
+        },
+        "collection": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byAuthor": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "closeDialog",
+        "skipContent",
+        "mainNavigation",
+        "searchBooks",
+        "switchToDark",
+        "switchToLight",
+        "bookshelfCount",
+        "openNavigation",
+        "navigation",
+        "previewBook",
+        "exploreBook",
+        "saveBook",
+        "removeBook"
+      ],
+      "properties": {
+        "closeDialog": {
+          "type": "string",
+          "minLength": 1
+        },
+        "skipContent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mainNavigation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchBooks": {
+          "type": "string",
+          "minLength": 1
+        },
+        "switchToDark": {
+          "type": "string",
+          "minLength": 1
+        },
+        "switchToLight": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bookshelfCount": {
+          "type": "string",
+          "minLength": 1
+        },
+        "openNavigation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "navigation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previewBook": {
+          "type": "string",
+          "minLength": 1
+        },
+        "exploreBook": {
+          "type": "string",
+          "minLength": 1
+        },
+        "saveBook": {
+          "type": "string",
+          "minLength": 1
+        },
+        "removeBook": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "book": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "previewHint",
+        "save",
+        "saved",
+        "onShelf",
+        "visit",
+        "share",
+        "back",
+        "artCaption",
+        "facts",
+        "editionNote",
+        "relatedLabel",
+        "relatedTitle"
+      ],
+      "properties": {
+        "previewHint": {
+          "type": "string",
+          "minLength": 1
+        },
+        "save": {
+          "type": "string",
+          "minLength": 1
+        },
+        "saved": {
+          "type": "string",
+          "minLength": 1
+        },
+        "onShelf": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "share": {
+          "type": "string",
+          "minLength": 1
+        },
+        "back": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artCaption": {
+          "type": "string",
+          "minLength": 1
+        },
+        "facts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "author",
+            "published",
+            "genre",
+            "language"
+          ],
+          "properties": {
+            "author": {
+              "type": "string",
+              "minLength": 1
+            },
+            "published": {
+              "type": "string",
+              "minLength": 1
+            },
+            "genre": {
+              "type": "string",
+              "minLength": 1
+            },
+            "language": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "editionNote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relatedLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "relatedTitle": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "searchLabel",
+        "searchPlaceholder",
+        "clearSearch",
+        "surprise",
+        "sortLabel",
+        "sortAccessibleLabel",
+        "sortOptions",
+        "countOne",
+        "countMany",
+        "emptyTitle",
+        "emptyText",
+        "reset",
+        "languageLabel",
+        "allLanguages"
+      ],
+      "properties": {
+        "searchLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clearSearch": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surprise": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortAccessibleLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sortOptions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "value",
+              "label"
+            ],
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1,
+                "enum": [
+                  "curated",
+                  "title",
+                  "newest"
+                ]
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "countOne": {
+          "type": "string",
+          "minLength": 1
+        },
+        "countMany": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reset": {
+          "type": "string",
+          "minLength": 1
+        },
+        "languageLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allLanguages": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "shelf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deviceLabel",
+        "remove",
+        "emptyTitle",
+        "emptyText",
+        "countOne",
+        "countMany"
+      ],
+      "properties": {
+        "deviceLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "remove": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emptyText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "countOne": {
+          "type": "string",
+          "minLength": 1
+        },
+        "countMany": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "readingLists": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "editorialNote",
+        "back",
+        "detailNote",
+        "save",
+        "cardLabel"
+      ],
+      "properties": {
+        "editorialNote": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "back": {
+          "type": "string",
+          "minLength": 1
+        },
+        "detailNote": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "save": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cardLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "journal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read",
+        "back",
+        "byline",
+        "bylineNote",
+        "companionLabel",
+        "companionLink"
+      ],
+      "properties": {
+        "read": {
+          "type": "string",
+          "minLength": 1
+        },
+        "back": {
+          "type": "string",
+          "minLength": 1
+        },
+        "byline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bylineNote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "companionLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "companionLink": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "search": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "eyebrow",
+        "label",
+        "placeholder",
+        "empty"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placeholder": {
+          "type": "string",
+          "minLength": 1
+        },
+        "empty": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "menu": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "feedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "removed",
+        "saved",
+        "listSaved",
+        "linkCopied",
+        "copyFallback"
+      ],
+      "properties": {
+        "removed": {
+          "type": "string",
+          "minLength": 1
+        },
+        "saved": {
+          "type": "string",
+          "minLength": 1
+        },
+        "listSaved": {
+          "type": "string",
+          "minLength": 1
+        },
+        "linkCopied": {
+          "type": "string",
+          "minLength": 1
+        },
+        "copyFallback": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

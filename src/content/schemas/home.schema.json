@@ -1,0 +1,208 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Margin home content",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "hero",
+    "manifesto",
+    "collection",
+    "readingLists",
+    "journal"
+  ],
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "titleLine",
+        "secondLine",
+        "emphasis",
+        "description",
+        "cta",
+        "footnote",
+        "shelfLabel",
+        "shelfNote",
+        "featuredBookIds"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "titleLine": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secondLine": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emphasis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "footnote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shelfLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "shelfNote": {
+          "type": "string",
+          "minLength": 1
+        },
+        "featuredBookIds": {
+          "type": "array",
+          "minItems": 3,
+          "items": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "maxItems": 3,
+          "uniqueItems": true
+        }
+      }
+    },
+    "manifesto": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lead",
+        "emphasis",
+        "note"
+      ],
+      "properties": {
+        "lead": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emphasis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "collection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "linkLabel",
+        "description"
+      ],
+      "properties": {
+        "featuredBookIds": { "type": "array", "minItems": 6, "maxItems": 6, "uniqueItems": true, "items": { "type": "integer", "minimum": 1 } },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "linkLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "readingLists": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "linkLabel"
+      ],
+      "properties": {
+        "featuredSlugs": { "type": "array", "minItems": 3, "maxItems": 3, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "linkLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "journal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "featuredArticleSlug",
+        "titleLine",
+        "emphasis",
+        "description",
+        "linkLabel",
+        "illustrationLabel"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "featuredArticleSlug": {
+          "type": "string",
+          "minLength": 1
+        },
+        "titleLine": {
+          "type": "string",
+          "minLength": 1
+        },
+        "emphasis": {
+          "type": "string"
+        },
+        "description": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "linkLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "illustrationLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

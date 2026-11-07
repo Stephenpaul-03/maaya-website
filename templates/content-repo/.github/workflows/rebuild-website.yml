@@ -1,0 +1,26 @@
+name: Rebuild bookstore
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'book-covers/**', '.github/workflows/rebuild-website.yml']
+  workflow_dispatch:
+permissions: {}
+concurrency:
+  group: bookstore-rebuild
+  cancel-in-progress: false
+jobs:
+  trigger:
+    if: ${{ vars.WEBSITE_REPOSITORY != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request website deployment
+        env:
+          GH_TOKEN: ${{ secrets.WEBSITE_DISPATCH_TOKEN }}
+          WEBSITE_REPOSITORY: ${{ vars.WEBSITE_REPOSITORY }}
+        shell: bash
+        run: |
+          if [[ -z "$GH_TOKEN" ]]; then
+            echo "Add WEBSITE_DISPATCH_TOKEN to this content repository's Actions secrets."
+            exit 1
+          fi
+          gh api --method POST "repos/$WEBSITE_REPOSITORY/dispatches" -f event_type=content-updated

@@ -1,0 +1,58 @@
+.shop-info { margin-top: 96px; padding-top: 56px; border-top: 1px solid var(--line); }
+.shop-info .shop-demo-notice { font-size: 11px; margin: 0 0 26px; color: var(--muted); padding-left: 12px; border-left: 2px solid var(--quiet); }
+.shop-intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-bottom: 44px; }
+.shop-intro h2 { font-size: clamp(38px, 4.3vw, 60px); line-height: 1.08; letter-spacing: -1px; margin: 18px 0; max-width: 650px; }
+.shop-info p, .shop-chapters p { font-size: 13px; line-height: 1.9; color: var(--muted); }
+.shop-intro p { max-width: 490px; margin: 0; }
+.shop-intro > a { flex-shrink: 0; font-size: 12px; }
+.shop-visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
+.shop-details { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; padding-block: 16px; }
+.shop-detail-block { min-width: 0; }
+.shop-detail-block > svg { color: var(--quiet); margin-bottom: 20px; }
+.shop-detail-block h3, .shop-courier h3 { font-size: 30px; line-height: 1.1; margin: 0 0 18px; }
+.shop-detail-block h4 { font-size: 11px; font-weight: 600; margin: 26px 0 12px; }
+.shop-detail-block address { font-style: normal; font-size: 13px; line-height: 1.9; color: var(--muted); }
+.shop-detail-block address span { display: block; }
+.shop-hours p { margin: 0; }
+.shop-contact-links { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+.shop-action-button { display: inline-flex; gap: 10px; align-items: center; justify-content: center; width: 100%; min-height: 42px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 5px; background: var(--paper); color: var(--ink); font-size: 11px; overflow-wrap: anywhere; box-shadow: 0 2px 5px #26372912, inset 0 1px 0 var(--surface-highlight); transition: transform .2s, background-color .2s, border-color .2s, box-shadow .2s; }
+.shop-action-button:hover { transform: translateY(-2px); border-color: var(--quiet); background: var(--surface-raised); box-shadow: var(--shadow-hover); text-decoration: none; }
+.shop-action-button svg { flex-shrink: 0; }
+.shop-contact-links svg, .shop-socials svg { flex-shrink: 0; }
+.shop-socials { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.shop-social-button { width: auto; }
+.shop-directions-button { width: auto; margin-top: 22px; }
+.shop-info .shop-pending { font-size: 12px; }
+.shop-map { min-height: 370px; background: var(--panel); border: 1px solid var(--line); display: grid; }
+.shop-map iframe { width: 100%; height: 100%; min-height: 370px; border: 0; }
+.shop-map-placeholder { display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 36px; text-align: center; color: var(--quiet); }
+.shop-map-placeholder span { font: 48px 'Libre Caslon Display', Georgia, serif; margin-top: 18px; }
+.shop-map-placeholder p { max-width: 250px; }
+.shop-courier { display: flex; align-items: center; gap: 28px; margin-top: 40px; padding: 32px; background: var(--sage); }
+.shop-courier > svg { flex-shrink: 0; }
+.shop-courier h3 { margin: 12px 0; }
+.shop-courier p { margin: 8px 0 0; max-width: 620px; }
+.shop-courier > a { margin-left: auto; flex-shrink: 0; font-size: 12px; }
+.shop-chapters { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; margin-top: 80px; padding-top: 48px; border-top: 1px solid var(--line); }
+.shop-chapters h2 { font-size: 40px; line-height: 1.12; margin: 20px 0; }
+@media (max-width: 1100px) {
+  .shop-visit-grid { gap: 32px; grid-template-columns: 1.2fr 1fr; }
+  .shop-details { gap: 24px; }
+  .shop-intro { align-items: flex-start; flex-direction: column; gap: 20px; }
+  .shop-courier { flex-wrap: wrap; }
+  .shop-courier > div { flex: 1; }
+  .shop-courier > a { margin-left: 58px; }
+}
+@media (max-width: 750px) {
+  .shop-info { margin-top: 64px; padding-top: 40px; }
+  .shop-visit-grid { grid-template-columns: 1fr; gap: 28px; }
+  .shop-map, .shop-map iframe { min-height: 320px; }
+  .shop-chapters { grid-template-columns: 1fr; gap: 32px; margin-top: 56px; }
+}
+@media (max-width: 420px) {
+  .shop-details { grid-template-columns: 1fr; gap: 32px; }
+  .shop-detail-block + .shop-detail-block { border-top: 1px solid var(--line); padding-top: 28px; }
+  .shop-courier { padding: 24px; gap: 20px; align-items: flex-start; }
+  .shop-courier > div { flex-basis: 100%; }
+  .shop-courier > a { margin-left: 0; }
+}

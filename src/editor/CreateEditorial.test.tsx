@@ -1,0 +1,72 @@
+// @vitest-environment jsdom
+import { afterEach, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen, within } from '@testing-library/react'
+import { CreateEditorial } from './CreateEditorial'
+const snapshot = {
+  token: 'test-token', revisions: { catalog: 'c', journal: 'j', 'reading-lists': 'l' },
+  content: { catalog: { books: [{ id: 1, title: 'Book One', author: 'Author One' }, { id: 2, title: 'Book Two', author: 'Author Two' }] }, journal: { articles: [{ slug: 'existing' }] }, 'reading-lists': { lists: [] } },
+}
+afterEach(() => { cleanup(); vi.unstubAllGlobals() })
+it('previews unsaved text and display choices without writing JSON', async () => {
+  const fetchMock = vi.fn()
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CreateEditorial kind="journal" snapshot={snapshot} onClose={vi.fn()} onCreated={vi.fn()} />)
+  const frame = screen.getByTitle('Unsaved editorial preview') as HTMLIFrameElement
+  const post = vi.spyOn(frame.contentWindow!, 'postMessage')
+  fireEvent(window, new MessageEvent('message', { origin: window.location.origin, source: frame.contentWindow, data: { type: 'editor-preview-ready' } }))
+  fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Live title' } })
+  await vi.waitFor(() => expect(post).toHaveBeenLastCalledWith(expect.objectContaining({ draft: expect.objectContaining({ entry: expect.objectContaining({ title: 'Live title' }) }), view: 'page' }), window.location.origin))
+  fireEvent.click(screen.getByRole('button', { name: 'Listing card' }))
+  expect(post).toHaveBeenLastCalledWith(expect.objectContaining({ view: 'card' }), window.location.origin)
+  fireEvent.click(screen.getByRole('button', { name: 'Mobile preview' }))
+  expect(frame.style.width).toBe('390px')
+  fireEvent.click(screen.getByRole('button', { name: 'Desktop preview' }))
+  expect(frame.style.width).toBe('1200px')
+  expect(within(screen.getByRole('dialog')).getByLabelText('Title')).toBeTruthy()
+  expect(fetchMock).not.toHaveBeenCalled()
+})
+it('creates a journal with a generated slug, paragraphs and a companion book', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ backup: 'test-backup' }))
+  vi.stubGlobal('fetch', fetchMock)
+  const onCreated = vi.fn().mockResolvedValue(undefined)
+  render(<CreateEditorial kind="journal" snapshot={snapshot} onClose={vi.fn()} onCreated={onCreated} />)
+  fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'A Quiet Morning' } })
+  expect((screen.getByLabelText('URL slug') as HTMLInputElement).value).toBe('a-quiet-morning')
+  fireEvent.change(screen.getByLabelText('Introduction'), { target: { value: 'An introduction.' } })
+  fireEvent.change(screen.getByLabelText('Article text'), { target: { value: 'First paragraph.\n\nSecond paragraph.' } })
+  fireEvent.click(screen.getByLabelText(/Book One/))
+  fireEvent.click(screen.getByRole('button', { name: 'Create & preview' }))
+  await vi.waitFor(() => expect(onCreated).toHaveBeenCalledWith('/journal/a-quiet-morning', 'test-backup'))
+  const request = JSON.parse(fetchMock.mock.calls[0][1].body)
+  expect(request.creation.entry.paragraphs).toEqual(['First paragraph.', 'Second paragraph.'])
+  expect(request.creation.entry.book).toBe(1)
+  expect(fetchMock.mock.calls[0][0]).toBe('/__editor/api/create')
+})
+it('creates a reading list in the selected book order', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ backup: 'test-backup' }))
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CreateEditorial kind="reading-lists" snapshot={snapshot} onClose={vi.fn()} onCreated={vi.fn().mockResolvedValue(undefined)} />)
+  fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Weekend Books' } })
+  fireEvent.change(screen.getByLabelText('Description'), { target: { value: 'Read these this weekend.' } })
+  fireEvent.click(screen.getByLabelText(/Book One/)); fireEvent.click(screen.getByLabelText(/Book Two/))
+  fireEvent.click(screen.getByRole('button', { name: 'Move Book Two earlier' }))
+  fireEvent.click(screen.getByRole('button', { name: 'Create & preview' }))
+  await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
+  expect(JSON.parse(fetchMock.mock.calls[0][1].body).creation.entry.ids).toEqual([2, 1])
+})
+it('keeps the form draft after a failed save and rejects duplicate slugs before sending', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ error: 'Changed on disk.' }, { status: 400 }))
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CreateEditorial kind="journal" snapshot={snapshot} onClose={vi.fn()} onCreated={vi.fn()} />)
+  fireEvent.change(screen.getByLabelText('Title'), { target: { value: 'Existing' } })
+  fireEvent.change(screen.getByLabelText('Introduction'), { target: { value: 'Intro' } })
+  fireEvent.change(screen.getByLabelText('Article text'), { target: { value: 'Body' } })
+  fireEvent.click(screen.getByLabelText(/Book One/))
+  fireEvent.click(screen.getByRole('button', { name: 'Create & preview' }))
+  expect(screen.getByRole('alert').textContent).toContain('already exists')
+  expect(fetchMock).not.toHaveBeenCalled()
+  fireEvent.change(screen.getByLabelText('URL slug'), { target: { value: 'new-slug' } })
+  fireEvent.click(screen.getByRole('button', { name: 'Create & preview' }))
+  await screen.findByText('Changed on disk.')
+  expect((screen.getByLabelText('Article text') as HTMLTextAreaElement).value).toBe('Body')
+})

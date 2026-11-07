@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Shop contact, location, courier and story content",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["eyebrow", "title", "intro", "storyLink", "contact", "visit", "courier", "chapters"],
+  "definitions": {
+    "text": { "type": "string", "minLength": 1 },
+    "optionalUrl": { "type": "string", "pattern": "^(https://[^\\s]+)?$" },
+    "lines": { "type": "array", "items": { "$ref": "#/definitions/text" } }
+  },
+  "properties": {
+    "$schema": { "type": "string" },
+    "demoNotice": { "type": "string" },
+    "eyebrow": { "$ref": "#/definitions/text" },
+    "title": { "$ref": "#/definitions/text" },
+    "intro": { "$ref": "#/definitions/text" },
+    "storyLink": { "$ref": "#/definitions/text" },
+    "contact": {
+      "type": "object", "additionalProperties": false,
+      "required": ["title", "description", "phone", "email", "whatsapp", "whatsappLabel", "pending", "socialTitle", "socialPending", "socials"],
+      "properties": {
+        "title": { "$ref": "#/definitions/text" },
+        "description": { "$ref": "#/definitions/text" },
+        "phone": { "type": "string", "pattern": "^(\\+[1-9][0-9 ()-]{6,20})?$" },
+        "email": { "type": "string", "pattern": "^([^\\s@]+@[^\\s@]+\\.[^\\s@]+)?$" },
+        "whatsapp": { "type": "string", "pattern": "^([1-9][0-9]{7,14})?$" },
+        "whatsappLabel": { "$ref": "#/definitions/text" },
+        "pending": { "$ref": "#/definitions/text" },
+        "socialTitle": { "$ref": "#/definitions/text" },
+        "socialPending": { "$ref": "#/definitions/text" },
+        "socials": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["label", "url"],
+            "properties": { "label": { "$ref": "#/definitions/text" }, "url": { "type": "string", "pattern": "^https://[^\\s]+$" } }
+          }
+        }
+      }
+    },
+    "visit": {
+      "type": "object", "additionalProperties": false,
+      "required": ["title", "address", "hours", "hoursLabel", "directionsUrl", "mapEmbedUrl", "mapTitle", "directionsLabel", "pending", "mapPending"],
+      "properties": {
+        "title": { "$ref": "#/definitions/text" },
+        "address": { "$ref": "#/definitions/lines" },
+        "hours": { "$ref": "#/definitions/lines" },
+        "hoursLabel": { "$ref": "#/definitions/text" },
+        "directionsUrl": { "$ref": "#/definitions/optionalUrl" },
+        "mapEmbedUrl": { "type": "string", "pattern": "^(https://www\\.google\\.com/maps(/embed\\?[^\\s]+|\\?q=[^\\s]+&output=embed))?$" },
+        "mapTitle": { "$ref": "#/definitions/text" },
+        "directionsLabel": { "$ref": "#/definitions/text" },
+        "pending": { "$ref": "#/definitions/text" },
+        "mapPending": { "$ref": "#/definitions/text" }
+      }
+    },
+    "courier": {
+      "type": "object", "additionalProperties": false,
+      "required": ["title", "badge", "summary", "details", "linkLabel"],
+      "properties": {
+        "title": { "$ref": "#/definitions/text" }, "badge": { "$ref": "#/definitions/text" },
+        "summary": { "$ref": "#/definitions/text" }, "details": { "$ref": "#/definitions/text" }, "linkLabel": { "$ref": "#/definitions/text" }
+      }
+    },
+    "chapters": {
+      "type": "array",
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["label", "title", "text"],
+        "properties": { "label": { "$ref": "#/definitions/text" }, "title": { "$ref": "#/definitions/text" }, "text": { "$ref": "#/definitions/text" } }
+      }
+    }
+  }
+}

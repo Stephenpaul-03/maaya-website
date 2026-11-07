@@ -1,0 +1,660 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "brand",
+    "metadata",
+    "nav",
+    "hero",
+    "strip",
+    "range",
+    "value",
+    "lists",
+    "visit",
+    "footer",
+    "promo",
+    "shop",
+    "showcase"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "minLength": 1
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "descriptor",
+        "homeLabel"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "descriptor": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homeLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "description"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "nav": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "range",
+        "value",
+        "visit",
+        "books"
+      ],
+      "properties": {
+        "range": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "visit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "books": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "accent",
+        "text",
+        "cta",
+        "secondary",
+        "note",
+        "artLabel",
+        "notebook",
+        "stamp"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "accent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "cta": {
+          "type": "string",
+          "minLength": 1
+        },
+        "secondary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "notebook": {
+          "type": "string",
+          "minLength": 1
+        },
+        "stamp": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "strip": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "text",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "label",
+              "text"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "value": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "text",
+        "steps",
+        "caption",
+        "comparison"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "text"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "caption": {
+          "type": "string",
+          "minLength": 1
+        },
+        "comparison": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "usualLabel",
+            "usualRoute",
+            "usualNote",
+            "directLabel",
+            "directRoute",
+            "directNote",
+            "removedLabel",
+            "removedNote",
+            "note"
+          ],
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1
+            },
+            "usualLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "usualRoute": {
+              "type": "array",
+              "minItems": 5,
+              "maxItems": 5,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "usualNote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "directLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "directRoute": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "directNote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "removedLabel": {
+              "type": "string",
+              "minLength": 1
+            },
+            "removedNote": {
+              "type": "string",
+              "minLength": 1
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "lists": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "text",
+              "tag"
+            ],
+            "properties": {
+              "title": {
+                "type": "string",
+                "minLength": 1
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tag": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "visit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "text",
+        "pending",
+        "checklistTitle",
+        "checklist",
+        "note"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pending": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checklistTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checklist": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tagline",
+        "sister",
+        "books",
+        "top",
+        "copyright"
+      ],
+      "properties": {
+        "tagline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sister": {
+          "type": "string",
+          "minLength": 1
+        },
+        "books": {
+          "type": "string",
+          "minLength": 1
+        },
+        "top": {
+          "type": "string",
+          "minLength": 1
+        },
+        "copyright": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "promo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "text",
+        "link"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "link": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "shop": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "intro",
+        "addressLabel",
+        "address",
+        "addressPending",
+        "hoursLabel",
+        "hours",
+        "hoursPending",
+        "contactLabel",
+        "contactText",
+        "phone",
+        "email",
+        "whatsapp",
+        "whatsappLabel",
+        "contactPending",
+        "directionsUrl",
+        "directionsLabel",
+        "mapEmbedUrl",
+        "mapTitle",
+        "mapPending"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "intro": {
+          "type": "string",
+          "minLength": 1
+        },
+        "addressLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "address": {
+          "type": "string"
+        },
+        "addressPending": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hoursLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "hours": {
+          "type": "string"
+        },
+        "hoursPending": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contactLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contactText": {
+          "type": "string",
+          "minLength": 1
+        },
+        "phone": {
+          "type": "string",
+          "pattern": "^(\\+[1-9][0-9 ()-]{6,20})?$"
+        },
+        "email": {
+          "type": "string",
+          "pattern": "^([^\\s@]+@[^\\s@]+\\.[^\\s@]+)?$"
+        },
+        "whatsapp": {
+          "type": "string",
+          "pattern": "^([1-9][0-9]{7,14})?$"
+        },
+        "whatsappLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "contactPending": {
+          "type": "string",
+          "minLength": 1
+        },
+        "directionsUrl": {
+          "type": "string",
+          "pattern": "^(https://[^\\s]+)?$"
+        },
+        "directionsLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapEmbedUrl": {
+          "type": "string",
+          "pattern": "^(https://www\\.google\\.com/maps(/embed\\?[^\\s]+|\\?q=[^\\s]+&output=embed))?$"
+        },
+        "mapTitle": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapPending": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "showcase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "eyebrow",
+        "title",
+        "text",
+        "note",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "items": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "category",
+              "description"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "category": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

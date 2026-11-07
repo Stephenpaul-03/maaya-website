@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Margin site content",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "brand",
+    "metadata",
+    "navigation",
+    "footer",
+    "closing"
+  ],
+  "properties": {
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "monogram",
+        "homeLabel"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "monogram": {
+          "type": "string",
+          "minLength": 1
+        },
+        "homeLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "language",
+        "title",
+        "description",
+        "themeColor"
+      ],
+      "properties": {
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "themeColor": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "href",
+          "label"
+        ],
+        "properties": {
+          "href": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "/",
+              "/collection",
+              "/reading-lists",
+              "/journal",
+              "/about",
+              "/stationery",
+              "/bookshelf"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "tagline",
+        "note",
+        "backToTop"
+      ],
+      "properties": {
+        "tagline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1
+        },
+        "backToTop": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "closing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "lines",
+        "linkLabel"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "lines": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "linkLabel": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "$schema": {
+      "type": "string"
+    }
+  }
+}

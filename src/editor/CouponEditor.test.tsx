@@ -1,0 +1,62 @@
+// @vitest-environment jsdom
+import { afterEach, expect, it, vi } from 'vitest'
+import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { CouponEditor } from './CouponEditor'
+import offers from '../../.cache/content/offers.json'
+const snapshot = { content: { offers, catalog: { books: [{ id: 1, title: 'Book One' }] } }, token: 'local-token', revisions: { offers: 'o', catalog: 'c' } }
+afterEach(() => { cleanup(); vi.unstubAllGlobals() })
+it('uses actual visibility by default and persists every configuration switch', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ backup: 'backup' }))
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CouponEditor snapshot={snapshot} onSaved={vi.fn()} onClose={vi.fn()} />)
+  expect((screen.getByRole('switch', { name: 'Preview whole section' }) as HTMLInputElement).checked).toBe(true)
+  for (const label of ['Enable this coupon', 'Open link in a new tab', 'Show offers section', 'Emphasize first offer']) fireEvent.click(screen.getByRole('switch', { name: label, hidden: true }))
+  fireEvent.click(screen.getByRole('button', { name: 'Save coupons' }))
+  await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledOnce())
+  const saved = JSON.parse(fetchMock.mock.calls[0][1].body).offers
+  expect(saved.items[0].enabled).toBe(!offers.items[0].enabled)
+  expect(saved.items[0].cta.newTab).toBe(!offers.items[0].cta.newTab)
+  expect(saved.enabled).toBe(!offers.enabled)
+  expect(saved.emphasizeFirst).toBe(!offers.emphasizeFirst)
+})
+it('adds a paused coupon, edits it and saves locally only when requested', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ backup: 'backup-id' }))
+  const onSaved = vi.fn().mockResolvedValue(undefined)
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CouponEditor snapshot={snapshot} onSaved={onSaved} onClose={vi.fn()} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Add coupon' }))
+  fireEvent.change(screen.getByLabelText('Coupon title'), { target: { value: 'Summer reading' } })
+  fireEvent.change(screen.getByLabelText('Coupon code'), { target: { value: 'SUMMER10' } })
+  expect(fetchMock).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Save coupons' }))
+  await vi.waitFor(() => expect(onSaved).toHaveBeenCalledWith('backup-id'))
+  expect(fetchMock.mock.calls[0][0]).toBe('/__editor/api/offers')
+  const body = JSON.parse(fetchMock.mock.calls[0][1].body)
+  expect(body.offers.items).toHaveLength(offers.items.length + 1)
+  expect(body.offers.items.at(-1)).toMatchObject({ title: 'Summer reading', code: 'SUMMER10', enabled: false })
+  expect(body.revisions).toEqual(snapshot.revisions)
+})
+it('requires removal confirmation, allows empty lists, and retains failed saves', async () => {
+  const fetchMock = vi.fn().mockResolvedValue(Response.json({ error: 'Offers changed on disk.' }, { status: 400 }))
+  vi.stubGlobal('fetch', fetchMock)
+  render(<CouponEditor snapshot={{ ...snapshot, content: { ...snapshot.content, offers: { ...offers, items: [offers.items[0]] } } }} onSaved={vi.fn()} onClose={vi.fn()} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Remove coupon' }))
+  expect(screen.getByLabelText('Coupon title')).toBeTruthy()
+  fireEvent.click(screen.getByRole('button', { name: 'Confirm removal' }))
+  expect(screen.getByText('No coupons yet. Add one to get started.')).toBeTruthy()
+  expect(fetchMock).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Save coupons' }))
+  await screen.findByText('Offers changed on disk.')
+  expect(JSON.parse(fetchMock.mock.calls[0][1].body).offers.items).toEqual([])
+  expect(screen.getByText('No coupons yet. Add one to get started.')).toBeTruthy()
+})
+it('reorders coupons and confirms discarding unsaved changes', () => {
+  const onClose = vi.fn()
+  render(<CouponEditor snapshot={snapshot} onSaved={vi.fn()} onClose={onClose} />)
+  fireEvent.click(screen.getByRole('button', { name: 'Move later' }))
+  expect((screen.getByLabelText('Coupon title') as HTMLInputElement).value).toBe(offers.items[0].title)
+  fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+  expect(onClose).not.toHaveBeenCalled()
+  fireEvent.click(screen.getByRole('button', { name: 'Discard changes' }))
+  expect(onClose).toHaveBeenCalledOnce()
+})
